@@ -7,7 +7,7 @@
       <v-toolbar-title>Appointments</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn dark text>
+        <v-btn dark text v-on:click="newappointmentdialog=true">
           New
         </v-btn>
       </v-toolbar-items>
@@ -30,17 +30,19 @@
           </v-expansion-panel-header>
 
           <v-expansion-panel-content>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+                {{item.note}}
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
     </v-card-text>
     <div style="flex: 1 1 auto;"></div>
+
     <v-dialog v-model="removeAppointment" max-width="290">
       <deleteAppointmentDialog></deleteAppointmentDialog>
+    </v-dialog>
+
+    <v-dialog v-model="newappointmentdialog" persistent max-width="450px">
+        <newappointmentdialogcomponent v-on:savetheAppointment="saveTheDate($event)"></newappointmentdialogcomponent>
     </v-dialog>
   </v-card>
 </template>
@@ -49,11 +51,15 @@
 import { bus } from "../../main";
 
 import deleteAppointmentDialog from "./deleteappointmentdialog";
+import newappointmentdialogcomponent from "./calenderdialog";
 
 export default {
 created() {
     bus.$on("cancelDeleteAppointmentDialog",()=>{
         this.removeAppointment=false
+    }),
+    bus.$on("closenewappointmentdialog",()=>{
+        this.newappointmentdialog=false
     })
 
 },
@@ -72,7 +78,8 @@ mounted(){
     })
 },
   components: {
-    deleteAppointmentDialog
+    deleteAppointmentDialog,
+    newappointmentdialogcomponent
   },
   methods: {
     CloseAppointmentDialog() {
@@ -81,20 +88,27 @@ mounted(){
     RemoveSelectedAppointment(item) {
         this.removeAppointment=true;
         this.selectedAppointmentToDelete=item;
+    },
+    saveTheDate(data){
+        console.error(data)
+        this.appointments.push(data)
     }
   },
   data() {
     return {
+        newappointmentdialog:false,
       removeAppointment: false,
       selectedAppointmentToDelete:{},
       appointments: [
         {
           date: new Date().toString(),
-          status: "close"
+          status: "close",
+          note:"Hello world"
         },
         {
           date: new Date().toString(),
-          status: "open"
+          status: "open",
+            note:"Hello world"
         }
       ]
     };
