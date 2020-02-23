@@ -29,7 +29,7 @@
 
           <v-flex row class="mt-5" justify-center>
             <v-btn class="secondary mx-2">Signup</v-btn>
-            <v-btn class="secondary mx-2">Login</v-btn>
+            <v-btn to="/login" target="_blank" class="secondary mx-2">Login</v-btn>
           </v-flex>
         </v-flex>
       </v-layout>
