@@ -9,6 +9,8 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 
+export const bus=new Vue();
+
 Vue.config.productionTip = false
 
 Vue.use(VueRouter)

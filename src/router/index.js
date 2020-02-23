@@ -2,6 +2,7 @@
 import home from "../components/home.vue"
 import login from "../components/Authentication/login"
 import signup from "../components/Authentication/signup"
+import conversation from "../components/Conversation/conversation"
 export default  [
     {
       path: '/',
@@ -17,6 +18,11 @@ export default  [
       path: '/signup',
       name: 'signup',
       component: signup
+    },
+    {
+      path: '/conversation',
+      name: 'conversation',
+      component: conversation
     },
   ]
 
