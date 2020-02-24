@@ -10,10 +10,15 @@ export const store=new Vuex.Store({
             id:0 || localStorage.getItem('id'),
             first_name:"" || localStorage.getItem('first_name'),
             last_name:"" || localStorage.getItem('last_name'),
-            auth_token:"" || localStorage.getItem('auth_token')
+            api_token:"" || localStorage.getItem('api_token'),
+            selected_language:"" || localStorage.getItem('selected_language')
         }
     },
-    getters:{},
+    getters:{
+        getUser:(state)=>{
+            return state.user
+        }
+    },
     mutations:{
         setUser:(state,payload)=>{
             state.user=payload
@@ -23,7 +28,8 @@ export const store=new Vuex.Store({
         setUser:(context,payload)=>{
             localStorage.setItem('first_name',payload.first_name)
             localStorage.setItem('last_name',payload.last_name)
-            localStorage.setItem('auth_token',payload.api_token)
+            localStorage.setItem('api_token',payload.api_token)
+            localStorage.setItem('selected_language',payload.selected_language)
             localStorage.setItem('id',payload.id)
             context.commit("setUser",payload)
         }
