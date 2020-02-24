@@ -5,6 +5,9 @@ import App from './App'
 import VueRouter from "vue-router"
 import routes from './router'
 import vuetify from './plugins/vuetify'
+
+import {store} from "./Vuex/store"
+
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
@@ -25,5 +28,6 @@ new Vue({
   el: '#app',
   router:router,
   components: { App },
+  store:store,
   template: '<App/>'
 })

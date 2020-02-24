@@ -39,8 +39,14 @@
 
 <script>
 import topbar from "./Topbar";
+import Axios from "axios"
 
 export default {
+  created(){
+    if(this.$route.query.email){
+      this.email=this.$route.query.email
+    }
+  },
   data() {
     return {
       rules: {
@@ -57,7 +63,26 @@ export default {
     topbar
   },
   methods: {
-    submit() {}
+    //TODO - do the validation
+    submit() {
+      Axios.post(process.env.BACKEND_ADDRESS+"auth/login",{
+        email:this.email,
+        password:this.password
+      })
+      .then(res=>{
+          if(res.data.user){
+            this.$store.dispatch("setUser",res.data.user)
+            if(res.data.user.code==null){
+              this.$router.push("/stepper")
+            }else{
+              this.$router.push("/conversation")
+            }
+          }
+      })
+      .catch(err=>{
+        console.log(err)
+      })
+    }
   }
 };
 </script>

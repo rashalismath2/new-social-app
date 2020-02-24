@@ -38,7 +38,7 @@
                 label="Password"
                 required
               ></v-text-field>
-              <v-btn class="secondary mr-4  " @click="submit">Login</v-btn>
+              <v-btn class="secondary mr-4  " @click="submit">Signup</v-btn>
             </form>
           </v-card>
           <div class="mx-auto ma-5"  >
@@ -52,6 +52,7 @@
 
 <script>
 import topbar from "./Topbar";
+import Axios from 'axios';
 
 export default {
     watch: {
@@ -85,7 +86,23 @@ export default {
     topbar
   },
   methods: {
-    submit() {}
+    submit() {
+      // TODO- do the inout validation here
+      Axios.post(process.env.BACKEND_ADDRESS+"auth/signup",{
+        first_name:this.firstName,
+        last_name:this.lastName,
+        email:this.email,
+        password:this.password
+      })
+      .then(res=>{
+          if(res.data.user){
+            this.$router.push("/login?email="+this.email)
+          }
+      })
+      .catch(err=>{
+        console.log(err)
+      })
+    }
   }
 };
 </script>
